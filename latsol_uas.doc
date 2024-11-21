@@ -1,0 +1,241 @@
+mysql> #TUGAS 1
+mysql> #1
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| akademik           |
+| balai_pengobatan   |
+| db_sekolah         |
+| db_ukt             |
+| employee           |
+| information_schema |
+| kuliah             |
+| library            |
+| manajemenproduk    |
+| modul3             |
+| modul4             |
+| modul7             |
+| modul_5            |
+| mydb               |
+| mydbpdo            |
+| mysql              |
+| naimahdb           |
+| naimahpbl          |
+| performance_schema |
+| pethouse           |
+| puskesmas          |
+| siwali_jkb         |
+| sys                |
+| toko               |
++--------------------+
+24 rows in set (0.01 sec)
+
+mysql> create database rental_mobil_def'
+    '> ;
+    '> ;
+    '> ';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''
+;
+;
+'' at line 1
+mysql> create database rental_mobil_def;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use rental_mobil_def;
+Database changed
+mysql> #2
+mysql> create table pelanggan
+    ->     -> (id_pelanggan varchar(5) primary key not null,
+    ->     -> nama varchar(30) not null,
+    ->     -> alamat varchar(45) not null,
+    ->     -> no_telp varchar(15) not null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-> (id_pelanggan varchar(5) primary key not null,
+    -> nama varchar(30) not nu' at line 2
+mysql> create table pelanggan
+    -> (id_pelanggan varchar(5) primary key not null,
+    -> nama varchar(30) not null,
+    -> alamat varchar(45),
+    -> no_telp varchar(15));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> alter table mobil
+    -> (id_mobil varchar(7) primary key not null,
+    -> merek varchar(30) not null,
+    -> tahun smallint(4),
+    -> harga_sewa decimal(10,2) not null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(id_mobil varchar(7) primary key not null,
+merek varchar(30) not null,
+tahun sma' at line 2
+mysql> create table mobil
+    -> (id_mobil varchar(7) primary key not null,
+    -> merek varchar(30) not null,
+    -> tahun smallint(4),
+    -> harga_sewa decimal(10,2) not null);
+Query OK, 0 rows affected, 1 warning (0.04 sec)
+
+mysql> create table rental
+    -> (id_rental varchar(5) primary key not null,
+    -> id_pelanggan varchar(5) not null,
+    -> tgl_rental date not null);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> create table detail_rental
+    -> (id_rental varchar(5) not null,
+    -> id_mobil varchar(7) not null,
+    -> lama_rental smallint(3) not null);
+Query OK, 0 rows affected, 1 warning (0.04 sec)
+
+mysql> #3
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| akademik           |
+| balai_pengobatan   |
+| db_sekolah         |
+| db_ukt             |
+| employee           |
+| information_schema |
+| kuliah             |
+| library            |
+| manajemenproduk    |
+| modul3             |
+| modul4             |
+| modul7             |
+| modul_5            |
+| mydb               |
+| mydbpdo            |
+| mysql              |
+| naimahdb           |
+| naimahpbl          |
+| performance_schema |
+| pethouse           |
+| puskesmas          |
+| rental_mobil_def   |
+| siwali_jkb         |
+| sys                |
+| toko               |
++--------------------+
+25 rows in set (0.00 sec)
+
+mysql> #4
+mysql> desc pelanggan
+    -> ;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| id_pelanggan | varchar(5)  | NO   | PRI | NULL    |       |
+| nama         | varchar(30) | NO   |     | NULL    |       |
+| alamat       | varchar(45) | YES  |     | NULL    |       |
+| no_telp      | varchar(15) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> desc mobil;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| id_mobil   | varchar(7)    | NO   | PRI | NULL    |       |
+| merek      | varchar(30)   | NO   |     | NULL    |       |
+| tahun      | smallint      | YES  |     | NULL    |       |
+| harga_sewa | decimal(10,2) | NO   |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> desc rental;
++--------------+------------+------+-----+---------+-------+
+| Field        | Type       | Null | Key | Default | Extra |
++--------------+------------+------+-----+---------+-------+
+| id_rental    | varchar(5) | NO   | PRI | NULL    |       |
+| id_pelanggan | varchar(5) | NO   |     | NULL    |       |
+| tgl_rental   | date       | NO   |     | NULL    |       |
++--------------+------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> desc detail_rental;
++-------------+------------+------+-----+---------+-------+
+| Field       | Type       | Null | Key | Default | Extra |
++-------------+------------+------+-----+---------+-------+
+| id_rental   | varchar(5) | NO   |     | NULL    |       |
+| id_mobil    | varchar(7) | NO   |     | NULL    |       |
+| lama_rental | smallint   | NO   |     | NULL    |       |
++-------------+------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> #5
+mysql> insert into pelanggan values
+    -> ('C001', 'Andi', 'Jl. Cempaka No.2', '08123456'),
+    -> ('C002', 'Budi', 'Jl. Melati No.15', '08234567'),
+    -> ('C003', 'Sari', 'Jl. Mawar No.10', '08345678'),
+    -> ('C004', 'Tini', 'Jl. Anggrek No.5', '08456789');
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> insert into mobil values
+    -> ('M10001', 'Toyota Avanza', 2020, 300000),
+    -> ('M10002', 'Honda Brio', 2021, 250000),
+    -> ('M10003', 'Suzuki Ertiga', 2019, 280000),
+    -> ('M10004', 'Daihatsu Xenia', 2018, 270000);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> insert into rental values
+    -> ('R001', 'C001', '2023-06-01'),
+    -> ('R002', 'C003', '2023-06-03'),
+    -> ('R003', 'C002', '2023-06-05');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> insert into detail_rental values
+    -> ('R001', 'M10001', 3),
+    -> ('R001', 'M10002', 2),
+    -> ('R002', 'M10003', 1),
+    -> ('R003', 'M10004', 4);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> #6
+mysql> select * from pelanggan;
++--------------+------+------------------+----------+
+| id_pelanggan | nama | alamat           | no_telp  |
++--------------+------+------------------+----------+
+| C001         | Andi | Jl. Cempaka No.2 | 08123456 |
+| C002         | Budi | Jl. Melati No.15 | 08234567 |
+| C003         | Sari | Jl. Mawar No.10  | 08345678 |
+| C004         | Tini | Jl. Anggrek No.5 | 08456789 |
++--------------+------+------------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from mobil;
++----------+----------------+-------+------------+
+| id_mobil | merek          | tahun | harga_sewa |
++----------+----------------+-------+------------+
+| M10001   | Toyota Avanza  |  2020 |  300000.00 |
+| M10002   | Honda Brio     |  2021 |  250000.00 |
+| M10003   | Suzuki Ertiga  |  2019 |  280000.00 |
+| M10004   | Daihatsu Xenia |  2018 |  270000.00 |
++----------+----------------+-------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from rental;
++-----------+--------------+------------+
+| id_rental | id_pelanggan | tgl_rental |
++-----------+--------------+------------+
+| R001      | C001         | 2023-06-01 |
+| R002      | C003         | 2023-06-03 |
+| R003      | C002         | 2023-06-05 |
++-----------+--------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from detail_rental;
++-----------+----------+-------------+
+| id_rental | id_mobil | lama_rental |
++-----------+----------+-------------+
+| R001      | M10001   |           3 |
+| R001      | M10002   |           2 |
+| R002      | M10003   |           1 |
+| R003      | M10004   |           4 |
++-----------+----------+-------------+
+4 rows in set (0.00 sec)
+
